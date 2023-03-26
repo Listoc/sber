@@ -23,6 +23,26 @@ public class City {
         this.foundation = infoArray[5];
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public String getFoundation() {
+        return foundation;
+    }
+
     public String toString() {
         return "City{" +
                 "name='" + name + '\'' +
