@@ -2,10 +2,7 @@ package Listok.sber;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void readCities(List<City> listOfCities, String path) throws IOException {
@@ -42,7 +39,6 @@ public class Main {
     }
 
     public static void sortByDistrict(List<City> listOfCities) {
-
         listOfCities.sort(new Comparator<City>() {
             @Override
             public int compare(City city1, City city2) {
@@ -53,15 +49,27 @@ public class Main {
 
     }
 
+    public static Map<String, Integer> maxPopulation(List<City> listOfCities) {
+        var arrayOfCities = listOfCities.toArray(new City[0]);
+        int max = 0;
+        int indexOfMax = -1;
+        for(int i = 0; i < arrayOfCities.length; ++i) {
+            if(arrayOfCities[i].getPopulation() > max) {
+                max = arrayOfCities[i].getPopulation();
+                indexOfMax = i;
+            }
+        }
+        var res = new HashMap<String, Integer>();
+        res.put("Index", indexOfMax);
+        res.put("Population", max);
+        return res;
+    }
+
     public static void main(String[] args) {
         var listOfCities = new ArrayList<City>();
         try {
             readCities(listOfCities, "citiesList.csv");
-            sortByName(listOfCities);
-            printCities(listOfCities);
-            for(int i = 0; i < 100; ++i) System.out.println("-".repeat(100));
-            sortByDistrict(listOfCities);
-            printCities(listOfCities);
+            System.out.println(maxPopulation(listOfCities));
         } catch (IOException e) {
             System.out.println("Problems with file!");
         }
