@@ -65,11 +65,24 @@ public class Main {
         return res;
     }
 
+    public static Map<String, Integer> countOfCitiesInRegions(List<City> listOfCities) {
+        var arrayOfCities = listOfCities.toArray(new City[0]);
+        var res = new HashMap<String, Integer>();
+        for(int i = 0; i < arrayOfCities.length; ++i) {
+            if(res.containsKey(arrayOfCities[i].getRegion())) {
+                res.put(arrayOfCities[i].getRegion(), res.get(arrayOfCities[i].getRegion()) + 1);
+            } else {
+                res.put(arrayOfCities[i].getRegion(), 1);
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         var listOfCities = new ArrayList<City>();
         try {
             readCities(listOfCities, "citiesList.csv");
-            System.out.println(maxPopulation(listOfCities));
+            System.out.println(countOfCitiesInRegions(listOfCities));
         } catch (IOException e) {
             System.out.println("Problems with file!");
         }
