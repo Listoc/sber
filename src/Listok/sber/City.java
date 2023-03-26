@@ -15,14 +15,6 @@ public class City {
         this.foundation = foundation;
     }
 
-    public City(String[] infoArray) {
-        this.name = infoArray[1];
-        this.region = infoArray[2];
-        this.district = infoArray[3];
-        this.population = Integer.parseInt(infoArray[4]);
-        this.foundation = infoArray[5];
-    }
-
     public String getName() {
         return name;
     }
