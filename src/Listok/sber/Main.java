@@ -72,13 +72,12 @@ public class Main {
     }
 
     public static Map<String, Integer> countOfCitiesInRegions(List<City> listOfCities) {
-        var arrayOfCities = listOfCities.toArray(new City[0]);
         var res = new HashMap<String, Integer>();
-        for(int i = 0; i < arrayOfCities.length; ++i) {
-            if(res.containsKey(arrayOfCities[i].getRegion())) {
-                res.put(arrayOfCities[i].getRegion(), res.get(arrayOfCities[i].getRegion()) + 1);
+        for(City e : listOfCities) {
+            if(res.containsKey(e.getRegion())) {
+                res.put(e.getRegion(), res.get(e.getRegion()) + 1);
             } else {
-                res.put(arrayOfCities[i].getRegion(), 1);
+                res.put(e.getRegion(), 1);
             }
         }
         return res;
@@ -101,7 +100,7 @@ public class Main {
     public static void main(String[] args) {
         var listOfCities = new ArrayList<City>(1200);
         var in = new Scanner(System.in);
-        int menuChoice = -1;
+        int menuChoice;
         try {
             readCities(listOfCities, "citiesList.csv");
             do {
