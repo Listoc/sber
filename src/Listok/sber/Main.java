@@ -2,7 +2,13 @@ package Listok.sber;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void readCities(List<City> listOfCities, String path) throws IOException {
@@ -78,14 +84,69 @@ public class Main {
         return res;
     }
 
+    public static void printMenu() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.print("""
+                Choose one:
+                0 - exit
+                1 - print list of cities
+                2 - sort list by city name (alphabetical order)
+                3 - sort list by district (alphabetical order, case sensitive)
+                4 - find city with most population
+                5 - count cities by region
+                """);
+        System.out.print("Your choice: ");
+    }
+
     public static void main(String[] args) {
-        var listOfCities = new ArrayList<City>();
+        var listOfCities = new ArrayList<City>(1200);
+        var in = new Scanner(System.in);
+        int menuChoice = -1;
         try {
             readCities(listOfCities, "citiesList.csv");
-            System.out.println(countOfCitiesInRegions(listOfCities));
+            do {
+                printMenu();
+                menuChoice = in.nextInt();
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                switch(menuChoice) {
+                    case 1:
+                        printCities(listOfCities);
+                        break;
+
+                    case 2:
+                        sortByName(listOfCities);
+                        break;
+
+                    case 3:
+                        sortByDistrict(listOfCities);
+                        break;
+
+                    case 4:
+                        System.out.println(maxPopulation(listOfCities));
+                        break;
+
+                    case 5:
+                        System.out.println(countOfCitiesInRegions(listOfCities));
+                        break;
+
+                    case 0:
+                        break;
+
+                    default:
+                        System.out.println("Wrong choice!");
+                }
+                System.out.print("Press enter to continue...");
+                in.nextLine();
+                in.nextLine();
+            } while(menuChoice != 0);
         } catch (IOException e) {
             System.out.println("Problems with file!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (InputMismatchException e) {
+            System.out.print("You need to input number!");
         }
+
     }
 
 }
