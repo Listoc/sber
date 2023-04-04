@@ -73,7 +73,7 @@ public class Main {
 
     public static Map<String, Integer> countOfCitiesInRegions(List<City> listOfCities) {
         var res = new HashMap<String, Integer>();
-        for(City e : listOfCities) {
+        for(var e : listOfCities) {
             if(res.containsKey(e.getRegion())) {
                 res.put(e.getRegion(), res.get(e.getRegion()) + 1);
             } else {
@@ -81,6 +81,12 @@ public class Main {
             }
         }
         return res;
+    }
+
+    public static void printMap(Map<String, Integer> map) {
+        for(var e : map.keySet()) {
+            System.out.println(e + " = " + map.get(e));
+        }
     }
 
     public static void printMenu() throws IOException, InterruptedException {
@@ -125,7 +131,7 @@ public class Main {
                         break;
 
                     case 5:
-                        System.out.println(countOfCitiesInRegions(listOfCities));
+                        printMap(countOfCitiesInRegions(listOfCities));
                         break;
 
                     case 0:
